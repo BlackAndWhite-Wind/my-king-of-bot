@@ -1,0 +1,21 @@
+package org.kob.backend.controller.user.bot;
+
+import org.kob.backend.pojo.Bot;
+import org.kob.backend.service.user.bot.CheckService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+public class CheckController {
+    @Autowired
+    private CheckService checkService;
+
+    @GetMapping("/user/bot/check/")
+    public List<Bot> getList() {
+        return checkService.check();
+    }
+}
+

@@ -1,16 +1,16 @@
 <template>
     <div class="result-board">
         <div class="result-board-text" v-if="$store.state.pk.loser === 'all'">
-            Draw
+            平局
         </div>
         <div class="result-board-text" v-else-if="$store.state.pk.loser === 'A' && $store.state.pk.a_id === parseInt($store.state.user.id)">
-            Lose
+            失败
         </div>
         <div class="result-board-text" v-else-if="$store.state.pk.loser === 'B' && $store.state.pk.b_id === parseInt($store.state.user.id)">
-            Lose
+            失败
         </div>
         <div class="result-board-text" v-else>
-            Win
+            胜利
         </div>
         <div class="result-board-btn">
             <button @click="restart" type="button" class="btn btn-warning btn-lg">

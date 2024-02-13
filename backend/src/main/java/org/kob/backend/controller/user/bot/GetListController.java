@@ -1,7 +1,7 @@
 package org.kob.backend.controller.user.bot;
 
 import org.kob.backend.pojo.Bot;
-import org.kob.backend.service.user.bot.CheckService;
+import org.kob.backend.service.user.bot.GetListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class CheckController {
+public class GetListController {
     @Autowired
-    private CheckService checkService;
+    private GetListService getListService;
 
-    @GetMapping("/user/bot/check/")
+    @GetMapping("/user/bot/getlist/")
     public List<Bot> getList() {
-        return checkService.check();
+        return getListService.getList();
     }
 }
 

@@ -5,9 +5,7 @@ import org.kob.backend.mapper.BotMapper;
 import org.kob.backend.pojo.Bot;
 import org.kob.backend.pojo.User;
 import org.kob.backend.service.impl.utils.UserDetailsImpl;
-import org.kob.backend.service.user.bot.CheckService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.kob.backend.service.user.bot.GetListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,14 +13,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
-public class CheckServiceImpl implements CheckService {
+public class GetListServiceImpl implements GetListService {
     @Autowired
     private BotMapper botMapper;
 
     @Override
-    public List<Bot> check() {
+    public List<Bot> getList() {
         UsernamePasswordAuthenticationToken authenticationToken =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl loginUser = (UserDetailsImpl) authenticationToken.getPrincipal();
@@ -33,5 +30,4 @@ public class CheckServiceImpl implements CheckService {
 
         return botMapper.selectList(queryWrapper);
     }
-
 }

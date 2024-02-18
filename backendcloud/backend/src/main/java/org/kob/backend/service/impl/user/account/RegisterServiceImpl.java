@@ -33,12 +33,12 @@ public class RegisterServiceImpl implements RegisterService {
         }
 
         username = username.trim();
-        if (username.isEmpty()) {
+        if (username.length() == 0) {
             map.put("error_message", "用户名不能为空");
             return map;
         }
 
-        if (password.isEmpty() || confirmedPassword.isEmpty()) {
+        if (password.length() == 0 || confirmedPassword.length() == 0) {
             map.put("error_message", "密码不能为空");
             return map;
         }
@@ -68,7 +68,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         String encodedPassword = passwordEncoder.encode(password);
         String photo = "https://cdn.acwing.com/media/user/profile/photo/1_lg_844c66b332.jpg";
-        User user = new User(null, username, encodedPassword, photo, 1500);
+        User user = new User(null, username, encodedPassword, photo, 1500, null);
         userMapper.insert(user);
 
         map.put("error_message", "success");

@@ -1,5 +1,6 @@
 package org.kob.backend.service.impl.user.bot;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.kob.backend.mapper.BotMapper;
 import org.kob.backend.pojo.Bot;
 import org.kob.backend.pojo.User;
@@ -31,9 +32,9 @@ public class AddServiceImpl implements AddService {
         String description = data.get("description");
         String content = data.get("content");
 
-        Map<String, String> map = new HashMap<>(); // 返回的信息
+        Map<String, String> map = new HashMap<>();
 
-        if (title == null || title.isEmpty()) {
+        if (title == null || title.length() == 0) {
             map.put("error_message", "标题不能为空");
             return map;
         }
@@ -43,7 +44,7 @@ public class AddServiceImpl implements AddService {
             return map;
         }
 
-        if (description == null || description.isEmpty()) {
+        if (description == null || description.length() == 0) {
             description = "这个用户很懒，什么也没留下~";
         }
 
@@ -52,13 +53,20 @@ public class AddServiceImpl implements AddService {
             return map;
         }
 
-        if (content == null || content.isEmpty()) {
+        if (content == null || content.length() == 0) {
             map.put("error_message", "代码不能为空");
             return map;
         }
 
         if (content.length() > 10000) {
             map.put("error_message", "代码长度不能超过10000");
+            return map;
+        }
+
+        QueryWrapper<Bot> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", user.getId());
+        if (botMapper.selectCount(queryWrapper) >= 10) {
+            map.put("error_message", "每个用户最多只能创建10个Bot！");
             return map;
         }
 

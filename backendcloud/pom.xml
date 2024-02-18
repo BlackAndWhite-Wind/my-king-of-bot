@@ -59,7 +59,6 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>org.kob.backendcloud.BackendcloudApplication</mainClass>
-                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>

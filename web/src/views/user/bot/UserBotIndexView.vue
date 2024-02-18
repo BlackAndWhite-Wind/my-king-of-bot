@@ -35,17 +35,12 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="add-bot-code" class="form-label">代码</label>
-                                        <VAceEditor v-model:value="botadd.content" @init="editorInit" lang="c_cpp"
-                                                theme="textmate" style="height: 300px" :options="{
-                                                    enableBasicAutocompletion: true, //启用基本自动完成
-                                                    enableSnippets: true, // 启用代码段
-                                                    enableLiveAutocompletion: true, // 启用实时自动完成
-                                                    fontSize: 18, //设置字号
-                                                    tabSize: 4, // 标签大小
-                                                    showPrintMargin: false, //去除编辑器里的竖线
-                                                    highlightActiveLine: true,
-                                                }" />
-
+                                        <VAceEditor
+                                            v-model:value="botadd.content"
+                                            @init="editorInit"
+                                            lang="c_cpp"
+                                            theme="textmate"
+                                            style="height: 300px" />
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -92,17 +87,12 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="add-bot-code" class="form-label">代码</label>
-                                                        <VAceEditor v-model:value="bot.content" @init="editorInit"
-                                                                lang="c_cpp" theme="textmate" style="height: 300px"
-                                                                :options="{
-                                                                    enableBasicAutocompletion: true, //启用基本自动完成
-                                                                    enableSnippets: true, // 启用代码段
-                                                                    enableLiveAutocompletion: true, // 启用实时自动完成
-                                                                    fontSize: 18, //设置字号
-                                                                    tabSize: 4, // 标签大小
-                                                                    showPrintMargin: false, //去除编辑器里的竖线
-                                                                    highlightActiveLine: true,
-                                                                }" />
+                                                        <VAceEditor
+                                                            v-model:value="bot.content"
+                                                            @init="editorInit"
+                                                            lang="c_cpp"
+                                                            theme="textmate"
+                                                            style="height: 300px" />
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -131,10 +121,6 @@ import { useStore } from 'vuex'
 import { Modal } from 'bootstrap/dist/js/bootstrap'
 import { VAceEditor } from 'vue3-ace-editor';
 import ace from 'ace-builds';
-import 'ace-builds/src-noconflict/mode-c_cpp';
-import 'ace-builds/src-noconflict/mode-json';
-import 'ace-builds/src-noconflict/theme-chrome';
-import 'ace-builds/src-noconflict/ext-language_tools';
 
 export default {
     components: {
@@ -142,10 +128,8 @@ export default {
     },
     setup() {
         ace.config.set(
-            "basePath",
-            "https://cdn.jsdelivr.net/npm/ace-builds@" +
-            require("ace-builds").version +
-            "/src-noconflict/")
+            "basePath", 
+            "https://cdn.jsdelivr.net/npm/ace-builds@" + require('ace-builds').version + "/src-noconflict/")
 
         const store = useStore();
         let bots = ref([]);
@@ -159,7 +143,7 @@ export default {
 
         const refresh_bots = () => {
             $.ajax({
-                url: "http://127.0.0.1:3000/user/bot/getlist/",
+                url: "https://app6577.acapp.acwing.com.cn/api/user/bot/getlist/",
                 type: "get",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
@@ -175,7 +159,7 @@ export default {
         const add_bot = () => {
             botadd.error_message = "";
             $.ajax({
-                url: "http://127.0.0.1:3000/user/bot/add/",
+                url: "https://app6577.acapp.acwing.com.cn/api/user/bot/add/",
                 type: "post",
                 data: {
                     title: botadd.title,
@@ -202,7 +186,7 @@ export default {
         const update_bot = (bot) => {
             botadd.error_message = "";
             $.ajax({
-                url: "http://127.0.0.1:3000/user/bot/update/",
+                url: "https://app6577.acapp.acwing.com.cn/api/user/bot/update/",
                 type: "post",
                 data: {
                     bot_id: bot.id,
@@ -226,7 +210,7 @@ export default {
 
         const remove_bot = (bot) => {
             $.ajax({
-                url: "http://127.0.0.1:3000/user/bot/remove/",
+                url: "https://app6577.acapp.acwing.com.cn/api/user/bot/remove/",
                 type: "post",
                 data: {
                     bot_id: bot.id,
